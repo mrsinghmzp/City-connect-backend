@@ -10,15 +10,12 @@ const OTP_EXPIRY_MS = 10 * 60 * 1000; // 10 minutes
 const AppError = require("../../utils/AppError");
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
+    host: 'smtp.gmail.com',
+    port: 587,          // ← Changed from 465
+    secure: false,      // ← Changed (STARTTLS handles encryption)
+    family: 4,          // ← Still add this for safety
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
 });
-
 exports.sendOtp = async (email) => {
     const otp = String(Math.floor(100000 + Math.random() * 900000));
     const expiresAt = Date.now() + OTP_EXPIRY_MS;
