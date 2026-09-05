@@ -10,7 +10,7 @@ const app = express();
 
 
 app.set("trust proxy", 1);
-app.use(limiter);
+
 // Security and utility middleware
 app.use(helmet({ crossOriginResourcePolicy: false })); // Allow serving static images across origins
 
