@@ -23,7 +23,7 @@ const allowedOrigins = process.env.CORS_ORIGINS
 app.use(cors({
     origin: (origin, callback) => {
         // !origin allows requests from mobile apps (React Native) or tools like Postman
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (!origin || origin === "null" || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error(`CORS policy: origin ${origin} is not allowed`));

@@ -20,13 +20,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-transporter.verify()
-    .then(() => {
-        console.log("✅ SMTP connection successful");
-    })
-    .catch((error) => {
-        console.error("❌ SMTP connection failed:", error);
-    });
+if (process.env.EMAIL_USER && process.env.EMAIL_PASS && process.env.NODE_ENV !== "production") {
+    transporter.verify()
+        .then(() => {
+            console.log("✅ SMTP connection successful");
+        })
+        .catch((error) => {
+            console.error("❌ SMTP connection failed:", error.message);
+        });
+}
 exports.sendOtp = async (email) => {
     const otp = String(Math.floor(100000 + Math.random() * 900000));
     const expiresAt = Date.now() + OTP_EXPIRY_MS;
