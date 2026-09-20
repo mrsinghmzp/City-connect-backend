@@ -67,6 +67,7 @@ const userRoutes = require("./routes/user");
 // Mount Route Groups
 app.use("/api/admin", adminRoutes);
 app.use("/cityconnect", userRoutes);
+app.use("/", userRoutes); // Supports mobile apps calling directly with /auth/login, /complaints, etc.
 
 // Handle 404 - Unmatched Routes
 app.use(/.*/, (req, res, next) => {
